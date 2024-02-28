@@ -77,5 +77,52 @@ namespace leetcode_playground
             else
                 return SearchForSubtree(root.rightChild, target);
         }
+
+        /// <summary>
+        /// Insert a value into the tree.
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public Node Insert(Node root, int value)
+        {
+            if (root is null)
+                return new Node(value);
+
+            if (value > root.value)
+                root.rightChild = Insert(root.rightChild, value);
+            else if (value < root.value)
+                root.leftChild = Insert(root.leftChild, value);
+
+            return root;
+        }
+
+        /// <summary>
+        /// Return the node with the smallest value.
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public Node FindMin(Node root)
+        {
+            Node cur = root;
+
+            while(cur != null && cur.leftChild != null)
+                cur = cur.leftChild;
+            return cur;
+        }
+
+        /// <summary>
+        /// Find the node with the largest value.
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public Node FindMax(Node root)
+        {
+            Node cur = root;
+
+            while (cur != null && cur.rightChild != null)
+                cur = cur.rightChild;
+            return cur;
+        }
     }
 }
