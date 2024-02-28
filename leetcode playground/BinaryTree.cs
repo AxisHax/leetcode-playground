@@ -124,5 +124,40 @@ namespace leetcode_playground
                 cur = cur.rightChild;
             return cur;
         }
+
+        public Node Remove(Node root, int value)
+        {
+            if (root is null)
+                return null;
+
+            if (value > root.value)
+                root.rightChild = Remove(root.rightChild, value);
+            else if (value < root.value)
+                root.leftChild = Remove(root.leftChild, value);
+            else
+            {
+                if (root.leftChild is null)
+                    return root.rightChild;
+                else if (root.rightChild is null)
+                    return root.leftChild;
+                else
+                {
+                    Node minNode = FindMin(root.rightChild);
+                    root.value = minNode.value;
+                    root.rightChild = Remove(root.rightChild, minNode.value);
+                }
+            }
+            return root;
+        }
+
+        public void InorderTraversal(Node root)
+        {
+            if (root is null)
+                return;
+
+            InorderTraversal(root.leftChild);
+            Console.WriteLine($"{root.value} ");
+            InorderTraversal(root.rightChild);
+        }
     }
 }
